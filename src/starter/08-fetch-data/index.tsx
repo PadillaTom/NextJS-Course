@@ -1,42 +1,32 @@
-import { useState, useEffect } from "react";
-const url = "https://www.course-api.com/react-tours-project";
+import { fetchTours } from "./types";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 function Component() {
-	// Tours
-	const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState<string | null>(null);
+	const {
+		isPending,
+		isError,
+		error,
+		data: tours,
+	} = useQuery({
+		queryKey: ["tours"],
+		queryFn: fetchTours,
+	});
 
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true);
-			try {
-				const resposne = await fetch(url);
-				if (!resposne.ok) {
-					throw new Error("no response");
-				}
-				const rawData = await resposne.json();
-				console.log(rawData);
-			} catch (error) {
-				const message = error instanceof Error ? error.message : "Error....";
-				setIsError(message);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchData();
-	}, []);
+	if (isPending) return <h2>Loading... </h2>;
+	if (isError) return <h2>Error: {error.message}</h2>;
 
-	if (isLoading) {
-		return <h3>Loading...</h3>;
-	}
-	if (isError) {
-		return <h3>Error: {isError}</h3>;
-	}
 	return (
 		<div>
-			<h2>React & Typescript</h2>
-			<h2>Fetch Data</h2>
+			<h2 className="mb-1">Tours</h2>
+			{tours.map((tour) => {
+				return (
+					<p className="mb-1" key={tour.id}>
+						{tour.name}
+					</p>
+				);
+			})}
 		</div>
 	);
 }
+
 export default Component;
