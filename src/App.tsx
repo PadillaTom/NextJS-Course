@@ -4,7 +4,9 @@ function App() {
 	return (
 		<main>
 			<Component name="Peter" id={123}></Component>
-			<Component name="Peter" id={123}></Component>
+			<Component name="Peter" id={123}>
+				I am a child
+			</Component>
 			<Component name="Peter" id={123}></Component>
 		</main>
 	);
