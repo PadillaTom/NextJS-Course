@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
 
-const InfoPage = () => {
+const ContactPage = () => {
 	return (
 		<div>
-			<h2>Info Page</h2>
+			<h2>Contact Page</h2>
 			<Link href={"/"} className="text-xl text-blue-500 inline-block mt-8">
 				Back to Home
 			</Link>
@@ -12,4 +12,4 @@ const InfoPage = () => {
 	);
 };
 
-export default InfoPage;
+export default ContactPage;
